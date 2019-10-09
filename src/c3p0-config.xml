@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+    <!-- 这是默认配置信息 -->
+    <name-config name="mall">
+        <!-- 连接四大参数配置 -->
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/jdbctest</property>
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="user">root</property>
+        <property name="password">root</property>
+        <!-- 池参数配置 -->
+        <!-- 如果池中配置参数不够，一次增长多少 -->
+        <property name="acquireIncrement">3</property>
+        <!-- 初始化连接数 -->
+        <property name="initialPoolSize">20</property>
+        <!-- 最小连接数 -->
+        <property name="minPoolSize">10</property>
+        <!-- 最大连接数 -->
+        <property name="maxPoolSize">40</property>
+        <!-- JDBC标准参数，用以控制数据源内加载的PrepareStatements数量 -->
+        <property name="maxStatements">0</property>
+        <!-- 链接池内单个链接所拥有的最大缓存statements数量 -->
+        <property name="maxStatementsPerConnection">5</property>
+    </name-config>
+
+
+</c3p0-config>
