@@ -1,4 +1,4 @@
-package com.alleyne.mall.web.servlet.base;
+package com.alleyne.mall.web.base;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

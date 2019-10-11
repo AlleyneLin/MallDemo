@@ -3,7 +3,7 @@
     <!-- 这是默认配置信息 -->
     <default-config>
         <property name="driverClass">com.mysql.jdbc.Driver</property>
-        <property name="jdbcUrl">jdbc:mysql://localhost:3306/store_40</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/mall_db</property>
         <property name="user">root</property>
         <property name="password">123456</property>
         <property name="checkoutTimeout">30000</property>
@@ -22,10 +22,10 @@
     <!-- 命名配置 -->
     <name-config name="mall">
         <!-- 连接四大参数配置 -->
-        <property name="jdbcUrl">jdbc:mysql://localhost:3306/jdbctest</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/mall_db</property>
         <property name="driverClass">com.mysql.jdbc.Driver</property>
         <property name="user">root</property>
-        <property name="password">root</property>
+        <property name="password">123456</property>
         <!-- 池参数配置 -->
         <!-- 如果池中配置参数不够，一次增长多少 -->
         <property name="acquireIncrement">3</property>
