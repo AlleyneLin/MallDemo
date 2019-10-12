@@ -1,7 +1,18 @@
 package com.alleyne.mall.service.impl;
 
+import com.alleyne.mall.dao.UserDao;
+import com.alleyne.mall.domain.User;
 import com.alleyne.mall.service.UserService;
+import com.alleyne.mall.utils.BeanFactory;
+
+import java.sql.SQLException;
 
 public class UserServiceImpl implements UserService {
+    UserDao userDao = (UserDao) BeanFactory.createObject("UserDao");
+    @Override
+    public void userRegist(User user01) throws SQLException {
+        //保存用户
+        userDao.userRegist(user01);
 
+    }
 }

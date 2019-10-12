@@ -30,5 +30,7 @@
         <jarDirectory url="file://$MODULE_DIR$/web/WEB-INF/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="commons-dbutils-1.4" level="project" />
+    <orderEntry type="library" name="mail" level="project" />
   </component>
 </module>
