@@ -13,6 +13,18 @@ public class UserServiceImpl implements UserService {
     public void userRegist(User user01) throws SQLException {
         //保存用户
         userDao.userRegist(user01);
-
     }
+
+    @Override
+    public User userActive(String code) throws SQLException{
+        User user = userDao.userActive(code);
+        return user;
+    }
+
+    @Override
+    public void updateUser(User user01) throws SQLException {
+        userDao.updateUser(user01);
+    }
+
+
 }
