@@ -26,5 +26,10 @@ public class UserServiceImpl implements UserService {
         userDao.updateUser(user01);
     }
 
+    @Override
+    public User userLogin(User user01) throws SQLException {
+        return userDao.userLogin(user01);
+    }
+
 
 }

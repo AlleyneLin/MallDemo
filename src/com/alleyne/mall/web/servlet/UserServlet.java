@@ -4,11 +4,13 @@ import com.alleyne.mall.domain.User;
 import com.alleyne.mall.service.UserService;
 import com.alleyne.mall.service.impl.UserServiceImpl;
 import com.alleyne.mall.utils.BeanFactory;
+import com.alleyne.mall.utils.CookieUtils;
 import com.alleyne.mall.utils.MyBeanUtills;
 import com.alleyne.mall.utils.UUIDUtils;
 import com.alleyne.mall.web.base.BaseServlet;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -51,10 +53,54 @@ public class UserServlet extends BaseServlet {
     }
 
     public String loginUI(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        Cookie ck=CookieUtils.getCookieByName("remUser", request.getCookies());
+        if(null!=ck){
+            request.setAttribute("remUser", ck.getValue());
+        }
         return "/jsp/login.jsp";
     }
 
     public String userLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //接受用户名和密码
+        User user1 = MyBeanUtills.populate(User.class, request.getParameterMap());
+        //调用业务层登录功能
+        User user2 = userService.userLogin(user1);
+        if (user2 != null){
+            request.getSession().setAttribute("loginUser", user2);
+            //在登录成功的基础上,判断用户是否选中自动登录复选框
+            String autoLogin = request.getParameter("autoLogin");
+            if ("yes".equals(autoLogin)){
+                Cookie ck = new Cookie("autoLogin", user2.getName()+"#"+user2.getPassword());
+                ck.setPath("/MallDemo");
+                ck.setMaxAge(1314);
+                response.addCookie(ck);
+            }
+            String remUser = request.getParameter("remUser");
+            if("yes".equals(remUser)){
+                Cookie ck = new Cookie("remUser", user2.getName());
+                ck.setPath("/MallDemo");
+                ck.setMaxAge(1314);
+                response.addCookie(ck);
+            }
+            response.sendRedirect(request.getContextPath()+"/index.jsp");
+        }else {
+            request.setAttribute("msg", "用户名和密码不匹配");
+            return "/jsp/login.jsp";
+        }
+        return null;
+    }
 
+    public String logOut(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        //用户退出,清空用户session
+        request.getSession().invalidate();
+        Cookie ck= CookieUtils.getCookieByName("autoLogin", request.getCookies());
+        if(null!=ck){
+            ck.setMaxAge(0);
+            ck.setPath("/store_v4");
+            response.addCookie(ck);
+        }
+
+        response.sendRedirect(request.getContextPath()+"/jsp/index.jsp");
+        return null;
     }
 }
